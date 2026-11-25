@@ -1,0 +1,17 @@
+{
+  "source": "https://github.com/Landry-kayoyo/vigilia123",
+  "target_version": "V1.1",
+  "capabilities": [
+    { "capability": "code", "source": "github:vigilia123", "outcome": "migrate_and_evolve", "status": "in_progress", "next_action": "Preserve monitoring/SSRF/UI identity and evolve to V1.1 personal command center" },
+    { "capability": "schema", "source": "drizzle/migrations/0000_migration.sql", "outcome": "migrate", "status": "applied", "next_action": "Verify CRUD and RLS on new Lovable Cloud schema" },
+    { "capability": "records", "source": "absent_in_repo", "outcome": "pending_export", "status": "pending", "next_action": "Request CSV/JSON exports after preview if owner wants historical monitors/incidents imported" },
+    { "capability": "auth_identities", "source": "absent_in_repo", "outcome": "migrate", "status": "in_progress", "next_action": "Email/password auth enabled on Lovable Cloud; owner creates account on new DB" },
+    { "capability": "authorization", "source": "multi_org_saas_to_personal_owner", "outcome": "migrate", "status": "applied", "next_action": "Strict owner_id = auth.uid() RLS and user_roles table; SaaS billing/email/multi-org removed" },
+    { "capability": "monitoring_and_cron", "source": "src/lib/monitoring/* + run-checks.ts", "outcome": "preserve_and_extend", "status": "in_progress", "next_action": "Preserve SSRF guard and checks, add Telegram anti-repeat incident notifications" },
+    { "capability": "multi_agent_orchestrator", "source": "v1.1_new", "outcome": "implement", "status": "in_progress", "next_action": "Build Lead COLLABORATOR + 7 specialists + custom agents + persistent missions" },
+    { "capability": "github_approval_mode", "source": "v1.1_new", "outcome": "implement", "status": "in_progress", "next_action": "Free read on repos; explicit time-bounded approval for writes; main branch protected" },
+    { "capability": "telegram_primary_channel", "source": "v1.1_new", "outcome": "implement", "status": "in_progress", "next_action": "Server-side encrypted bot token, auto setWebhook, verified Chat ID, notifications & commands" },
+    { "capability": "ai_providers_and_failover", "source": "v1.1_new", "outcome": "implement", "status": "in_progress", "next_action": "Multi-key encrypted storage, error classification, circuit breaker, failover logs" },
+    { "capability": "verification", "source": "vitest + playwright", "outcome": "verify", "status": "pending", "next_action": "Run unit tests and end-to-end verification" }
+  ]
+}

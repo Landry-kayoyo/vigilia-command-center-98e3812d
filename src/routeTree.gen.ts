@@ -10,33 +10,59 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicJobsRunChecksRouteImport } from './routes/api/public/jobs/run-checks'
+import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicJobsRunChecksRoute = ApiPublicJobsRunChecksRouteImport.update({
+  id: '/api/public/jobs/run-checks',
+  path: '/api/public/jobs/run-checks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicTelegramWebhookRoute =
+  ApiPublicTelegramWebhookRouteImport.update({
+    id: '/api/public/telegram/webhook',
+    path: '/api/public/telegram/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/jobs/run-checks': typeof ApiPublicJobsRunChecksRoute
+  '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/jobs/run-checks': typeof ApiPublicJobsRunChecksRoute
+  '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/jobs/run-checks': typeof ApiPublicJobsRunChecksRoute
+  '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/api/public/jobs/run-checks' | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/public/jobs/run-checks' | '/api/public/telegram/webhook'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/public/jobs/run-checks'
+    | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicJobsRunChecksRoute: typeof ApiPublicJobsRunChecksRoute
+  ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +74,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/jobs/run-checks': {
+      id: '/api/public/jobs/run-checks'
+      path: '/api/public/jobs/run-checks'
+      fullPath: '/api/public/jobs/run-checks'
+      preLoaderRoute: typeof ApiPublicJobsRunChecksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/telegram/webhook': {
+      id: '/api/public/telegram/webhook'
+      path: '/api/public/telegram/webhook'
+      fullPath: '/api/public/telegram/webhook'
+      preLoaderRoute: typeof ApiPublicTelegramWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicJobsRunChecksRoute: ApiPublicJobsRunChecksRoute,
+  ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
